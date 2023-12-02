@@ -1,12 +1,15 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBO-7SGiW2Sqc9OIxJls_6f7QQ6o7u070E",
-  authDomain: "y-reloaded.firebaseapp.com",
-  projectId: "y-reloaded",
-  storageBucket: "y-reloaded.appspot.com",
-  messagingSenderId: "890993425067",
-  appId: "1:890993425067:web:4badf27fae35a27c3895ee",
+  apiKey: "AIzaSyCwlx4UKUlpYDp9gADDGLGHQkOUcVOVYrs",
+  authDomain: "x-mas-218be.firebaseapp.com",
+  projectId: "x-mas-218be",
+  storageBucket: "x-mas-218be.appspot.com",
+  messagingSenderId: "694659358332",
+  appId: "1:694659358332:web:4c4805bb0eb1317a0af3f9",
 };
 
 const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
