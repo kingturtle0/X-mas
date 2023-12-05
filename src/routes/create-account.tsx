@@ -1,8 +1,8 @@
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useState } from "react";
-import { auth } from "../firebase";
-import { Link, useNavigate } from "react-router-dom";
-import { FirebaseError } from "firebase/app";
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { useState } from 'react';
+import { auth } from '../firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import { FirebaseError } from 'firebase/app';
 import {
   Error,
   Form,
@@ -10,45 +10,46 @@ import {
   Switcher,
   Title,
   Wrapper,
-} from "../components/auth-components";
+} from '../components/auth-components';
+import AuthButton from '../components/auth-btn';
 
 export default function CreateAccount() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
     } = e;
-    if (name === "name") {
+    if (name === 'name') {
       setName(value);
-    } else if (name === "email") {
+    } else if (name === 'email') {
       setEmail(value);
-    } else if (name === "password") {
+    } else if (name === 'password') {
       setPassword(value);
     }
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-    if (isLoading || name === "" || email === "" || password === "") return;
+    setError('');
+    if (isLoading || name === '' || email === '' || password === '') return;
     try {
       setIsLoading(true);
       const credentials = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       console.log(credentials.user);
       await updateProfile(credentials.user, {
         displayName: name,
       });
-      navigate("/");
+      navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);
@@ -65,37 +66,38 @@ export default function CreateAccount() {
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
-          name="name"
+          name='name'
           value={name}
-          placeholder="Name"
-          type="text"
+          placeholder='Name'
+          type='text'
           required
         />
         <Input
           onChange={onChange}
-          name="email"
+          name='email'
           value={email}
-          placeholder="Email"
-          type="email"
+          placeholder='Email'
+          type='email'
           required
         />
         <Input
           onChange={onChange}
-          name="password"
+          name='password'
           value={password}
-          placeholder="Password"
-          type="password"
+          placeholder='Password'
+          type='password'
           required
         />
         <Input
-          type="submit"
-          value={isLoading ? "Loading..." : "Create Account"}
+          type='submit'
+          value={isLoading ? 'Loading...' : 'Create Account'}
         />
       </Form>
-      {error !== "" ? <Error>{error}</Error> : null}
+      {error !== '' ? <Error>{error}</Error> : null}
       <Switcher>
-        Already have an account? <Link to="/login">Log In &rarr;</Link>
+        Already have an account? <Link to='/login'>Log In &rarr;</Link>
       </Switcher>
+      <AuthButton />
     </Wrapper>
   );
 }
