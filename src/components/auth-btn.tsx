@@ -13,10 +13,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-top: 25px;
 `;
 
 const Button = styled.span`
-  margin-top: 50px;
+  margin-top: 25px;
   background-color: white;
   font-weight: 600;
   width: 100%;
