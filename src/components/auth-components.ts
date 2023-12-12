@@ -13,9 +13,10 @@ export const Container = styled.div<{ $img: string }>`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 440px;
-  height: 560px;
+  height: 580px;
   padding: 30px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 30px;
@@ -40,10 +41,15 @@ export const Input = styled.input`
   border-radius: 50px;
   border: none;
   font-size: 16px;
+  &:focus {
+    outline: 2px solid #275653;
+  }
   &[type='submit'] {
     cursor: pointer;
-    background-color: #275653;
-    color: white;
+    background-color: white;
+    color: #275653;
+    font-weight: 600;
+    font-size: 18px;
     &:hover {
       opacity: 0.8;
     }
@@ -52,28 +58,30 @@ export const Input = styled.input`
 
 export const Error = styled.span`
   font-weight: 600;
-  color: tomato;
+  color: #c32e21;
 `;
 
-export const Switcher = styled.span`
-  margin-top: 20px;
-  a {
-    color: #c32e21;
+export const Switcher = styled.div`
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  width: 90%;
+  color: rgba(255, 255, 255, 0.9);
+  &::before,
+  &::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 0px 10px;
   }
 `;
 
-export const LogoWrapper = styled.div`
+export const License = styled.a`
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 12px;
   color: white;
-  font-family: 'Permanent Marker', cursive;
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-`;
-
-export const LogoX = styled.h1`
-  font-size: 280px;
-`;
-
-export const LogoMas = styled.h1`
-  font-size: 140px;
 `;

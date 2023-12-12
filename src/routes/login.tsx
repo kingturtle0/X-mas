@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { auth } from '../firebase';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {
@@ -8,14 +8,29 @@ import {
   Error,
   Form,
   Input,
-  LogoMas,
-  LogoWrapper,
-  LogoX,
+  License,
   Switcher,
   Title,
   Wrapper,
 } from '../components/auth-components';
+import styled from 'styled-components';
 import AuthButton from '../components/auth-btn';
+
+const LogoWrapper = styled.div`
+  color: white;
+  font-family: 'Permanent Marker', cursive;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+`;
+
+const LogoX = styled.h1`
+  font-size: 280px;
+`;
+
+const LogoMas = styled.h1`
+  font-size: 140px;
+`;
 
 export default function Login() {
   const navigate = useNavigate();
@@ -77,15 +92,18 @@ export default function Login() {
             type='password'
             required
           />
-          <Input type='submit' value={isLoading ? 'Loading...' : 'Log In'} />
+          <Input type='submit' value={isLoading ? 'Loading...' : '로그인'} />
         </Form>
         {error !== '' ? <Error>{error}</Error> : null}
-        <Switcher>
-          Don't have an account?{' '}
-          <Link to='/create-account'>Create One &rarr;</Link>
-        </Switcher>
+        <Switcher>또는</Switcher>
         <AuthButton />
       </Wrapper>
+      <License
+        href='https://unsplash.com/ko/@tjholowaychuk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'
+        target='_blank'
+      >
+        사진: Unsplash의 Tj Holowaychuk
+      </License>
     </Container>
   );
 }
