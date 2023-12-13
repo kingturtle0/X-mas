@@ -25,6 +25,7 @@ export const Wrapper = styled.div`
 export const Title = styled.h1`
   font-size: 42px;
   font-family: 'Permanent Marker', cursive;
+  color: white;
 `;
 
 export const Form = styled.form`

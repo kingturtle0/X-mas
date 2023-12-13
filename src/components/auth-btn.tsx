@@ -75,7 +75,7 @@ export default function AuthButton() {
   return (
     <Wrapper>
       <Button id='switcher' onClick={onSwitch}>
-        {switcherBtnText}
+        {switcherBtnText} 🎅&rarr;
       </Button>
       {BUTTONS.map((name) => {
         return (

@@ -74,7 +74,7 @@ export default function Login() {
         <LogoMas>-mas</LogoMas>
       </LogoWrapper>
       <Wrapper>
-        <Title>Log into X-mas</Title>
+        <Title>MERRY X-mas</Title>
         <Form onSubmit={onSubmit}>
           <Input
             onChange={onChange}

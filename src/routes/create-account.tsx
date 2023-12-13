@@ -65,7 +65,7 @@ export default function CreateAccount() {
   return (
     <Container $img={'public/Join-bg.jpg'}>
       <Wrapper>
-        <Title>Merry X-mas</Title>
+        <Title>Join to X-mas</Title>
         <Form onSubmit={onSubmit}>
           <Input
             onChange={onChange}
