@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import LoadingScreen from './components/loading-screen';
 import { auth } from './firebase';
 import ProtectedRoute from './components/protected-route';
+import NotFound from './routes/not-found';
+import NotYet from './routes/not-yet';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +30,12 @@ const router = createBrowserRouter([
         path: 'profile',
         element: <Profile />,
       },
+      {
+        path: 'not-yet',
+        element: <NotYet />,
+      },
     ],
+    errorElement: <NotFound />,
   },
   {
     path: '/login',
