@@ -10,13 +10,17 @@ const Form = styled.form`
   gap: 10px;
 `;
 
+const TextAreaWrapper = styled.div`
+  position: relative;
+`;
+
 const TextArea = styled.textarea`
-  border: 2px solid white;
+  border: 2px solid #275653;
   padding: 20px;
   border-radius: 20px;
   font-size: 16px;
-  color: white;
-  background-color: black;
+  color: #275653;
+  background-color: white;
   width: 100%;
   resize: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -26,16 +30,24 @@ const TextArea = styled.textarea`
   }
   &:focus {
     outline: none;
-    border-color: tomato;
+    border-color: #c32e21;
   }
+`;
+
+const LimitCount = styled.label`
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #275653;
+  opacity: 0.6;
 `;
 
 const AttachFileButton = styled.label`
   padding: 10px 0px;
-  color: tomato;
+  color: #c32e21;
   text-align: center;
   border-radius: 20px;
-  border: 1px solid tomato;
+  border: 1px solid #c32e21;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -46,7 +58,7 @@ const AttachFileInput = styled.input`
 `;
 
 const SubmitButton = styled.input`
-  background-color: tomato;
+  background-color: #c32e21;
   color: white;
   border: none;
   padding: 10px 0px;
@@ -58,6 +70,8 @@ const SubmitButton = styled.input`
     opacity: 0.8;
   }
 `;
+
+const MAX_LENGTH = 180;
 
 export default function PostTweetForm() {
   const [isLoading, SetIsLoading] = useState(false);
@@ -78,7 +92,7 @@ export default function PostTweetForm() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = auth.currentUser;
-    if (!user || isLoading || tweet === '' || tweet.length > 200) return;
+    if (!user || isLoading || tweet === '' || tweet.length > MAX_LENGTH) return;
 
     try {
       SetIsLoading(true);
@@ -105,14 +119,18 @@ export default function PostTweetForm() {
 
   return (
     <Form onSubmit={onSubmit}>
-      <TextArea
-        required
-        rows={5}
-        maxLength={200}
-        onChange={onChange}
-        value={tweet}
-        placeholder='What is happening?'
-      />
+      <TextAreaWrapper>
+        <TextArea
+          id='text'
+          required
+          rows={4}
+          maxLength={MAX_LENGTH}
+          onChange={onChange}
+          value={tweet}
+          placeholder='What is happening?!'
+        />
+        <LimitCount htmlFor='text'>{`${tweet.length} / ${MAX_LENGTH}`}</LimitCount>
+      </TextAreaWrapper>
       <AttachFileButton htmlFor='file'>
         {file ? 'Photo added ✅' : 'Add photo'}
       </AttachFileButton>
