@@ -284,17 +284,17 @@ export default function Layout() {
       <Outlet />
       <Menu>
         <Advertisement href='https://santatracker.google.com/' target='_blank'>
-          <img src='/public/santa.png' alt='광고' />
+          <img src='/santa.png' alt='광고' />
         </Advertisement>
         <Advertisement
           href='https://santatracker.google.com/codelab.html'
           target='_blank'>
-          <img src='/public/rudolph.png' alt='광고' />
+          <img src='/rudolph.png' alt='광고' />
         </Advertisement>
         <Advertisement
           href='https://santatracker.google.com/runner.html'
           target='_blank'>
-          <img src='/public/codelab.png' alt='광고' />
+          <img src='/codelab.png' alt='광고' />
         </Advertisement>
       </Menu>
     </Wrapper>

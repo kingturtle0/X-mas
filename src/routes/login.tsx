@@ -68,7 +68,7 @@ export default function Login() {
   };
 
   return (
-    <Container $img={'public/Login-bg.jpg'}>
+    <Container $img={'/Login-bg.jpg'}>
       <LogoWrapper>
         <LogoX>X</LogoX>
         <LogoMas>-mas</LogoMas>
@@ -100,8 +100,7 @@ export default function Login() {
       </Wrapper>
       <License
         href='https://unsplash.com/ko/@tjholowaychuk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'
-        target='_blank'
-      >
+        target='_blank'>
         사진: Unsplash의 Tj Holowaychuk
       </License>
     </Container>

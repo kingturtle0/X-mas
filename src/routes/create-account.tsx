@@ -63,7 +63,7 @@ export default function CreateAccount() {
   };
 
   return (
-    <Container $img={'public/Join-bg.jpg'}>
+    <Container $img={'/Join-bg.jpg'}>
       <Wrapper>
         <Title>Join to X-mas</Title>
         <Form onSubmit={onSubmit}>
@@ -99,8 +99,7 @@ export default function CreateAccount() {
       </Wrapper>
       <License
         href='https://unsplash.com/ko/@jeshoots?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'
-        target='_blank'
-      >
+        target='_blank'>
         사진: Unsplash의 JESHOOTS.COM
       </License>
     </Container>
