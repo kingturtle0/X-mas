@@ -14,31 +14,27 @@ import {
   Wrapper,
 } from '../components/auth-components';
 import AuthButton from '../components/auth-btn';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+type Inputs = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export default function CreateAccount() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const [firebaseError, setFirebaseError] = useState('');
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { name, value },
-    } = e;
-    if (name === 'name') {
-      setName(value);
-    } else if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError('');
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setFirebaseError('');
+    const { name, email, password } = data;
     if (isLoading || name === '' || email === '' || password === '') return;
     try {
       setIsLoading(true);
@@ -47,53 +43,45 @@ export default function CreateAccount() {
         email,
         password,
       );
-      console.log(credentials.user);
       await updateProfile(credentials.user, {
         displayName: name,
       });
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {
-        setError(e.message);
+        setFirebaseError(e.message);
       }
     } finally {
       setIsLoading(false);
     }
-    console.log(name, email, password);
   };
 
   return (
     <Container $img={'/Join-bg.jpg'}>
       <Wrapper>
         <Title>Join to X-mas</Title>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            onChange={onChange}
-            name='name'
-            value={name}
+            {...register('name', { required: true })}
             placeholder='Name'
             type='text'
-            required
           />
+          {errors.name && <Error>Name is required</Error>}
           <Input
-            onChange={onChange}
-            name='email'
-            value={email}
+            {...register('email', { required: true })}
             placeholder='Email'
             type='email'
-            required
           />
+          {errors.email && <Error>Email is required</Error>}
           <Input
-            onChange={onChange}
-            name='password'
-            value={password}
+            {...register('password', { required: true })}
             placeholder='Password'
             type='password'
-            required
           />
+          {errors.password && <Error>Password is required</Error>}
           <Input type='submit' value={isLoading ? 'Loading...' : '회원가입'} />
         </Form>
-        {error !== '' ? <Error>{error}</Error> : null}
+        {firebaseError !== '' ? <Error>{firebaseError}</Error> : null}
         <Switcher>또는</Switcher>
         <AuthButton />
       </Wrapper>

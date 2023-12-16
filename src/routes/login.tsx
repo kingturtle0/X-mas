@@ -15,6 +15,12 @@ import {
 } from '../components/auth-components';
 import styled from 'styled-components';
 import AuthButton from '../components/auth-btn';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 const LogoWrapper = styled.div`
   color: white;
@@ -35,24 +41,16 @@ const LogoMas = styled.h1`
 export default function Login() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const [firebaseError, setFirebaseError] = useState('');
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { name, value },
-    } = e;
-    if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError('');
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setFirebaseError('');
+    const { email, password } = data;
     if (isLoading || email === '' || password === '') return;
     try {
       setIsLoading(true);
@@ -60,7 +58,7 @@ export default function Login() {
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {
-        setError(e.message);
+        setFirebaseError(e.message);
       }
     } finally {
       setIsLoading(false);
@@ -75,26 +73,22 @@ export default function Login() {
       </LogoWrapper>
       <Wrapper>
         <Title>MERRY X-mas</Title>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            onChange={onChange}
-            name='email'
-            value={email}
+            {...register('email', { required: true })}
             placeholder='Email'
             type='email'
-            required
           />
+          {errors.email && <Error>This field is required</Error>}
           <Input
-            onChange={onChange}
-            name='password'
-            value={password}
+            {...register('password', { required: true })}
             placeholder='Password'
             type='password'
-            required
           />
+          {errors.password && <Error>This field is required</Error>}
           <Input type='submit' value={isLoading ? 'Loading...' : '로그인'} />
         </Form>
-        {error !== '' ? <Error>{error}</Error> : null}
+        {firebaseError !== '' ? <Error>{firebaseError}</Error> : null}
         <Switcher>또는</Switcher>
         <AuthButton />
       </Wrapper>
